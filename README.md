@@ -1,5 +1,7 @@
 # PortfolioOptimisationTradingBot
 
+#### This project is for educational purposes and should not be used as a guide for investment decisions.
+
 ## Dependencies:
 
 •	numpy
@@ -16,10 +18,43 @@
  
 ## Example: 
 
-To use this project, you will need to make an Alpaca account. Documentation can be found here: https://alpaca.markets/docs/api-documentation/api-v2/
+To use this project, you will need to make an Alpaca account (I used a paper trading account). Documentation can be found here: https://alpaca.markets/docs/api-documentation/api-v2/
 
+#### Testing with US Tech stocks:
+If we wanted to use this tool to find the optimal portfolio allocation for a group of US Tech companies we would do the following:
 
-## Summary:
+ - Instantiate the portfolio class:
+   - assets: (str/list) ticker names of companies to analyse. E.g. 'AAPL' for Apple inc.
+   - weights: (float/list) I set the initial weights to 1/len(assets) as this will be optimised in the tool.
+   - start_balance: (int/float) The starting balance of the portfolio. Alpaca paper trading account allows you to start with £100000.
+   - start: (date)
+   - end: (date)
+ 
+ - Run the .optimise() method:
+   - optimisation_method: (str) 'max sharpe' or 'min volatility' I set the default to 'max sharpe'
+   - risk-free-rate: (float) I set the default to 0.02
+   
+   ##### This will return portfolio summary, projections and a graph showing the historical adj. closing prices of the portfolio assets.
+   # ![](images/2020-08-31%20(2).png)
+   
+ - Run the .monte_carlo() method:
+   - time_horizon: (int) The amount of years that you expect to hold the investment for.
+   - annual_additions: (int/float) Choose the amount of extra funds that will be added to the portfolio each year.
+   - iterations: (int) Choose the number of iterations for the Monte Carlo method.
+   - plot: (Boolean) True to plot the graph of monte carlo simulation, False otherwise.
+   
+   ##### This will return a summary of the Monte Carlo simulation as well as a graphical representation, should Plot=True.
+   # ![](images/2020-08-31%20(3).png)
+   
+ - Instantiate the Alpaca trading bot:
+   - api_key_id: (str) This is an api-key-id that is provided by Alpaca when you make an account.
+   - secret_key: (str) This is a secret api key that is provided by Alpaca when you make an account.
+   - base_url: (str) Base url that points to your account (more details in Alpaca documentation.
+   
+   ##### Should you decide to trade based on the information, this object then executes the trades and returns a summary of the trades. Below is a screenshot of my paper-trading a couple days after I executed my trades.
+   # ![](images/2020-08-27%20(2).png)
+
+## Project summary:
 A tool that calculates the optimal allocation of prospective portfolio assets such as to maximise expected return given relative to the volatility using the PyPortfolioOpt library. Once the portfolio is optimised, trades are then automatically executed through the Alpaca API. 
 
 ## Motivations/Intentions:
