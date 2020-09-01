@@ -1,16 +1,23 @@
 # PortfolioOptimisationTradingBot
 
 ## Dependencies:
-PIP install:
-•	numpy
-•	pandas
-•	matplotlib
-•	pandas_datareader
-•	pypfopt
-•	alpaca-trade-api
-To use this project, you will need to make an Alpaca account. Documentation can be found here: https://alpaca.markets/docs/api-documentation/api-v2/ 
 
-## Example:
+•	numpy
+ 
+•	pandas
+ 
+•	matplotlib
+ 
+•	pandas_datareader
+ 
+•	pypfopt
+ 
+•	alpaca-trade-api
+ 
+## Example: 
+
+To use this project, you will need to make an Alpaca account. Documentation can be found here: https://alpaca.markets/docs/api-documentation/api-v2/
+
 
 ## Summary:
 A tool that calculates the optimal allocation of prospective portfolio assets such as to maximise expected return given relative to the volatility using the PyPortfolioOpt library. Once the portfolio is optimised, trades are then automatically executed through the Alpaca API. 
