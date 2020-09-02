@@ -1,9 +1,8 @@
 import datetime as datetime
 from tools.portfoliooptimiser import Portfolio
 from tools.alpacatradingbot import AlpacaTradingBot
-from keys.keys import secret_api, api_key_id, base_url
 
-def main(secret_api, api_key_id, base_url):
+def main(secret_api, api_key_id):
     #stocks that we will be investing in
     tech = ['FB','AMZN','AAPL','NFLX','GOOG','TSLA','SNAP']
 
@@ -18,6 +17,8 @@ def main(secret_api, api_key_id, base_url):
     portfolio.monte_carlo(time_horizon = 15, annual_addition = 10000, iterations = 5000, plot = True)
   
     #instantiate the api
+    base_url = 'https://paper-api.alpaca.markets'
+    
     bot = AlpacaTradingBot(api_key_id = api_key_id,
                            secret_key = secret_api,
                            base_url = base_url)
@@ -29,9 +30,10 @@ def main(secret_api, api_key_id, base_url):
                             side='buy')
         except KeyError:
             pass
+        #add exception that catches lack of funds.
     
     #View a summary of our portfolio
     return bot.get_positions()
 
 if __name__ == '__main__':
-    main(secret_api = secret_api, api_key_id=api_key_id, base_url = base_url)
+    main(secret_api = secret_api, api_key_id=api_key_id)
