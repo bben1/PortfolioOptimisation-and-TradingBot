@@ -1,8 +1,5 @@
 import alpaca_trade_api as tradeapi
 
-secret_key = 'AGsIkmmR8q8DzSSvMj9I0QFIdov23W4ZY6A5v8qn'
-api_key_id = 'PKJI5LH5PHGK1P0XZ8IY'
-
 base_url = 'https://paper-api.alpaca.markets'
 
 class AlpacaTradingBot:
@@ -52,7 +49,7 @@ class AlpacaTradingBot:
         
         active_assets = self.api.list_assets(status='active')
         
-        print(active_assets)
+        return active_assets
         
     def get_positions(self):
         
@@ -94,3 +91,4 @@ class AlpacaTradingBot:
                             )
         else:
             print('Asset is not tradable.')
+            
