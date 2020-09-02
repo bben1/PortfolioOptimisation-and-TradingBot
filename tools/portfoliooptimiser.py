@@ -15,7 +15,21 @@ from pypfopt.discrete_allocation import DiscreteAllocation, get_latest_prices
 
 
 class Portfolio:
+    """
+    Summary:
+    Creates portfolio of companies in the stock market.
     
+    Inputs:
+    assets -- (list/str) list of tickers of the companies that are going to be in the portfolio.
+    weights -- (list/float) list of weights associated with the portfolio companies.
+    start_balance -- (float) opening balance of the portfolio (budget).
+    start_date -- (date) start-date from which historical analysis will begin)
+    end_date -- (date) date from which historical analysis ends.
+    
+    returns:
+    Plot of adj closing prices of the assets between the start and end dates.
+    
+    """
     def __init__(self, assets, weights, start_balance, start_date, end_date):
         
         self.assets = assets
@@ -31,7 +45,14 @@ class Portfolio:
         self.daily_returns = self.adj_close_prices.pct_change()
         
     def create_df(self, plot = False):
-   
+        """
+        Summary: 
+        Creates a dataframe of the adj. close prices of each asset within the start and end dates.
+        
+        Inputs:
+        plot -- (bool) if True, plots the adj. close prices.
+        
+        """
         for stock in self.assets:
             self.adj_close_prices[stock] = web.DataReader(stock,
                                                           data_source='yahoo',
@@ -51,10 +72,22 @@ class Portfolio:
             plt.legend(self.adj_close_prices.columns.values, loc='upper left')
             plt.show()
 
-    def optimise(self, optimisation_technique='max sharpe',risk_free_rate=0.02):
+    def optimise(self, optimisation_technique = 'max sharpe', risk_free_rate = 0.02):
         """
-        - Find a way to get the optimised portfolio returns, volatility, discrete allocations etc as class attributes
-        - Include arguments into this method to change optimisation parameters such as risk-free-rate, risk-targets etc..
+        Summary: 
+        Calculates optimal portfolio allocation to satisfy portfolio objectives.
+        
+        Inputs:
+        optimisation_technique -- (str) 'max sharpe' or 'min volatilty'.
+        risk_free_rate -- (float) estimate of the risk-free-rate.
+        
+        Returns:
+        Portfolio forecast summary -- Expected return, Expected volatility, Expected Sharpe Ratio
+        
+        Prints:
+        Discrete share allocation
+        Liquid funds remaining
+        
         """
         #Calculate the expected returns and the annualised sample covariance matrix of asset returns
         self.annual_return = expected_returns.mean_historical_return(self.adj_close_prices)
@@ -95,8 +128,19 @@ class Portfolio:
         
     def monte_carlo(self, time_horizon=5, annual_addition=0, iterations=300, plot=False):
         """
-        Project possible financial performance using monte carlo
-        - Try monte carlo with brownian
+        Summary:
+        Projects the value of the portfolio after a time-horizon using Monte Carlo Simulation.
+        
+        Inputs:
+        time_horizon -- (int) The length of time (years) before you exit all portfolio positions.
+        annual_addition -- (float) The amount of money that will be consistently added to the portfolio on an annual basis.
+        iterations -- (int) The number of iterations to perform the monte carlo simulation.
+        plot -- (bool) If true, returns a plot showing the distribution of projected portfolio value.
+        
+        Returns:
+        Summary of the monte carlo simulation with key statistics.
+        If plot, returns a plot showing the distribution of projected portfolio value.
+        
         """
         sim = pd.DataFrame()
         
@@ -129,3 +173,5 @@ class Portfolio:
             plt.xlabel('Projected portfolio returns')
             plt.ylabel('Probability')
             plt.title(f'Monte carlo simulation at {iterations} iterations.')
+            
+         
