@@ -1,8 +1,23 @@
+import pandas as pd
+import numpy as np
 import datetime as datetime
+from pandas_datareader import data as web
+from pandas.util.testing import assert_frame_equal
+
+import matplotlib.pyplot as plt
+plt.style.use('fivethirtyeight')
+
+from pypfopt.efficient_frontier import EfficientFrontier, objective_functions
+from pypfopt import risk_models
+from pypfopt import expected_returns
+from pypfopt.discrete_allocation import DiscreteAllocation, get_latest_prices
+
+import alpaca_trade_api as tradeapi
+
 from tools.portfoliooptimiser import Portfolio
 from tools.alpacatradingbot import AlpacaTradingBot
 
-def main(secret_api, api_key_id):
+def main(secret_api, api_key_id, base_url):
     #stocks that we will be investing in
     tech = ['FB','AMZN','AAPL','NFLX','GOOG','TSLA','SNAP']
 
@@ -36,4 +51,7 @@ def main(secret_api, api_key_id):
     return bot.get_positions()
 
 if __name__ == '__main__':
-    main(secret_api = secret_api, api_key_id=api_key_id)
+    secret_api = #Your secret API key
+    api_key_id = #Your API key id
+    base_url = 'https://paper-api.alpaca.markets'
+    main(secret_api = secret_api, api_key_id=api_key_id, base_url=base_url)
