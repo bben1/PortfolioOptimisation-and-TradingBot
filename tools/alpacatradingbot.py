@@ -1,7 +1,3 @@
-import alpaca_trade_api as tradeapi
-
-base_url = 'https://paper-api.alpaca.markets'
-
 class AlpacaTradingBot:
     """
     Summary:
