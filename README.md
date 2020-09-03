@@ -1,6 +1,6 @@
 # PortfolioOptimisationTradingBot
 
-#### This project is for educational purposes and should not be used as a guide for investment decisions.
+#### This project is for educational purposes and should not be used as a guide for financial decisions.
 
 ## Project summary:
 A tool that calculates the optimal allocation of prospective portfolio assets such as to maximise expected return given relative to the volatility using the PyPortfolioOpt library. Once the portfolio is optimised, trades are then automatically executed through the Alpaca API. 
