@@ -3,6 +3,15 @@ import alpaca_trade_api as tradeapi
 base_url = 'https://paper-api.alpaca.markets'
 
 class AlpacaTradingBot:
+    """
+    Summary:
+    Executes trades using the Alpaca API.
+    
+    Inputs:
+    api_key_id -- (str) api_key_id provided by Alpaca when you make an account
+    secret_key -- (str) secret_key provided by Alpaca when you make an account
+    base_url -- (str) refer to Alpaca API documentation
+    """
     def __init__(self,api_key_id, secret_key, base_url):
         self.api = tradeapi.REST(key_id = api_key_id,
                             secret_key = secret_key,
@@ -11,15 +20,14 @@ class AlpacaTradingBot:
         
     def get_account_info(self, info=[]):
         """
-        Inputs list or str:
-        id:
-        account number:
-        status:
-        cash:
-        portfolio value:
-        long market value:
-        equity:
-        buying power:
+        Summary:
+        get Alpaca account information
+        
+        Inputs:
+        info -- (list/str) any of ['id','account number','status','cash','portfolio value','long market value','equity','buying power']
+        
+        Returns:
+        account information
         """
         account = self.api.get_account()
         
@@ -46,20 +54,38 @@ class AlpacaTradingBot:
             return account
         
     def get_active_assets(self):
+        """
+        Summary:
+        get list of active assets
         
+        Returns:
+        (json) active assets
+        """
         active_assets = self.api.list_assets(status='active')
         
         return active_assets
         
     def get_positions(self):
+        """
+        Summary:
+        get list of portfolio positions
         
+        Returns:
+        (json) portfolio positions
+        """
         # Get a list of all of our positions.
         positions = self.api.list_positions()
 
         return positions
     
     def market_open(self):
+        """
+        Summary:
+        find out if the market is open
         
+        Returns:
+        (bool)
+        """
         clock = self.api.get_clock()
         
         if clock.is_open:
@@ -76,6 +102,9 @@ class AlpacaTradingBot:
         ticker (str) -- e.g. 'AAPL' 
         quantity (float) -- e.g. 27.0 (must be > 0)
         side (str) -- 'buy' or 'sell'
+        
+        Returns:
+        (json) summary of transaction
         """
         #Now that our purchase condition is satisfied we can buy the stock
         order_asset = self.api.get_asset(ticker)
